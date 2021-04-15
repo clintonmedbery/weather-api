@@ -1,6 +1,7 @@
 import assert from 'assert'
 import nock from 'nock'
 import supertest from 'supertest'
+import { ERROR_CODES } from '../../server/constants/error-codes.constants.js'
 import app from '../../server/index.js'
 import { charlestonData } from './weather.mock-data.js'
 let request = supertest(app)
@@ -27,6 +28,22 @@ describe('GET /weather', () => {
         assert.equal(results[4].date, '2021-04-18')
         assert.equal(results[4].temperature, 64.3)
         assert.equal(results[4].description, 'Overcast clouds')
+        done()
+      })
+      .catch(err => {
+        console.error(err)
+        done(err)
+      })
+  })
+  it('should get deny an invalid zip code', done => {
+    request
+      .get(`/weather?zipCode=1`)
+      .set('Content-Type', 'application/json')
+      .expect(400)
+      .then(response => {
+        const result = JSON.parse(response.res.text)
+        assert.equal(result.message, ERROR_CODES.INVALID_ZIP)
+    
         done()
       })
       .catch(err => {
