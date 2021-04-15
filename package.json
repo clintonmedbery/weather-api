@@ -1,0 +1,25 @@
+{
+  "name": "weather-api",
+  "version": "1.0.0",
+  "description": "Api for a little weather application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r dotenv/config server/index.js",
+    "dev": "nodemon -r dotenv/config server/index.js",
+    "test": "mocha tests/**/*.test.js --exit"
+  },
+  "author": "Clinton Medbery",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "nock": "^13.0.11",
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3"
+  },
+  "type": "module",
+  "devDependencies": {
+    "mocha": "^8.3.2"
+  }
+}
