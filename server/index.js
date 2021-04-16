@@ -4,7 +4,7 @@ import './loadEnv.js'
 import { zipCodeValidation } from './middleware/validation/input.validation.js'
 const app = express()
 
-const port = 4000
+const port = process.env.PORT || 4000
 
 app.get('/canary', (req, res) => {
   res.send('alive')
