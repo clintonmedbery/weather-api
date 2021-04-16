@@ -2,6 +2,8 @@
 
 API for Weather Client
 
+Full Instructions at https://github.com/clintonmedbery/weather-client
+
 ### Install the dependencies
 
 `npm install`
