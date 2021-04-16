@@ -8,6 +8,11 @@ export const getWeatherByZipCode = async (req, res, next) => {
     if (!response.data) {
       res.status(200).json({ data: [] })
     }
+    //We splice the app since it only supports 5 day forecasts
+    //Future improvements would be to take a number, and then 
+    //give that many days forecast
+    
+    //Map data to object ui can understand
     const weatherData = response.data
       .map(weatherItem => {
         return {
