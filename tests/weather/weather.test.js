@@ -8,9 +8,7 @@ let request = supertest(app)
 
 describe('GET /weather', () => {
   nock('https://api.weatherbit.io/v2.0')
-    .get(
-      '/forecast/daily'
-    )
+    .get('/forecast/daily')
     .query(true)
     .reply(200, charlestonData)
   it('should get Charleston Weather', done => {
@@ -19,7 +17,12 @@ describe('GET /weather', () => {
       .set('Content-Type', 'application/json')
       .expect(200)
       .then(response => {
-        const results = JSON.parse(response.res.text)
+        const weatherData = JSON.parse(response.res.text)
+        const cityName = weatherData.cityName
+        assert.equal(cityName, 'Charleston')
+
+        const results = weatherData.data
+        assert.equal(results.length, 5)
 
         assert.equal(results.length, 5)
         assert.equal(results[0].date, '2021-04-14')
@@ -43,7 +46,7 @@ describe('GET /weather', () => {
       .then(response => {
         const result = JSON.parse(response.res.text)
         assert.equal(result.message, ERROR_CODES.INVALID_ZIP)
-    
+
         done()
       })
       .catch(err => {
